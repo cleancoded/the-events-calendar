@@ -62,6 +62,15 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$args['end_date'] = isset( $request['end_date'] ) ?
 			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
 			: false;
+
+		// if start date is after end date clear $arg
+		if ( $args['start_date'] > $args['end_date'] ) {
+
+			$message = $this->messages->get_message( 'event-archive-start-greater-end-date' );
+
+			return new WP_Error( 'event-archive-start-greater-end-date', $message, array( 'status' => 400 ) );
+		}
+
 		$args['s'] = $request['search'];
 
 		$args['meta_query'] = array_filter( array(
