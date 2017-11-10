@@ -56,6 +56,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$args['paged'] = $request['page'];
 		$args['posts_per_page'] = $request['per_page'];
+
+		//todo why convert dates to timezones at all?
+		//todo how to get the start date with time 0000 and end date with 2359
 		$args['start_date'] = isset( $request['start_date'] ) ?
 			Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
 			: false;
