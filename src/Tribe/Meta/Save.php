@@ -72,6 +72,7 @@ class Tribe__Events__Meta__Save {
 				} else {
 					// a preview post has not been created yet, or is not valid - create one and save the ID
 					$preview_post_id = Tribe__Events__API::$create( $_POST[ $posttype ], 'draft' );
+					echo $event_id;
 					update_post_meta( $event_id, $meta_key, $preview_post_id );
 				}
 			}
@@ -109,7 +110,9 @@ class Tribe__Events__Meta__Save {
 			return false;
 		}
 
-		$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
+	
+		
+		$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;		
 		$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
 
 		/**

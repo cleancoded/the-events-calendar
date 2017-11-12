@@ -145,6 +145,8 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							</p>
 						</td>
 					</tr>
+                    
+                    
 					<tr class="event-dynamic-helper">
 						<td class="label">
 						</td>
@@ -166,7 +168,68 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 			</td>
 		</tr>
 	</table>
-
+    <?php
+		$headline				= get_post_meta( $event->ID, 'headline', true );
+		$AffiliatedOrganization = get_post_meta( $event->ID, 'AffiliatedOrganization', true );
+		$BodyCopy 				= get_post_meta( $event->ID, 'BodyCopy', true );
+		$RegistrationTextandLink= get_post_meta( $event->ID, 'RegistrationTextandLink', true );
+		$eventCategory			= get_post_meta( $event->ID, 'eventCategory', true );
+	?>
+	<table id="event_url" class="eventtable">
+		<tbody>
+            <tr>
+                <td style="width:160px;">Headline:</td>
+                <td>
+                    <input type="text" name="headline " id="headline" value="<?php echo esc_attr( $headline ); ?>" style="width:70%;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:160px;">Affiliated Organization:</td>
+                <td>
+                	<select name="AffiliatedOrganization" id="AffiliatedOrganization" style="width:70%;">
+                    	<option value="">Select Affiliated Organization</option>
+                    </select>                    
+                </td>
+            </tr>
+            <tr>
+                <td style="width:160px;">Body Copy:</td>
+                <td>
+                	<?php 
+        
+					 wp_nonce_field('example_nonce_action', 'example_nonce_field');
+					 
+					 //$content = get_option('special_content');
+					 
+					 $content = esc_attr( $BodyCopy );
+					 
+					 wp_editor( $content, 'BodyCopy', $settings = array('textarea_rows'=> '10'));
+					 
+					?>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td style="width:160px;">Registration Text and Link:</td>
+                <td>
+                	
+                    <input type="text" name="RegistrationTextandLink" id="RegistrationTextandLink" value="<?php echo esc_attr( $RegistrationTextandLink ); ?>" style="width:70%;" />
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="width:160px;">Category:</td>
+                <td>
+                	<select name="eventCategory" id="eventCategory" style="width:70%;">
+                    	<option value="">Select Category</option>
+                        <option value="Walk" <?php ($eventCategory == 'Walk')?'selected="selected"':'';?>>Walk</option>
+                        <option value="Lecture" <?php ($eventCategory == 'Lecture')?'selected="selected"':'';?>>Lecture</option>
+                        <option value="Webinar" <?php ($eventCategory == 'Webinar')?'selected="selected"':'';?>>Webinar</option>
+                        <option value="Symposium" <?php ($eventCategory == 'Symposium')?'selected="selected"':'';?>>Symposium</option>
+                    </select>                    
+                </td>
+            </tr>
+		</tbody>
+    </table>
 	<?php Tribe__Events__Linked_Posts::instance()->render_meta_box_sections( $event ); ?>
 
 	<table id="event_url" class="eventtable">
