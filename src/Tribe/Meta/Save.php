@@ -114,6 +114,12 @@ class Tribe__Events__Meta__Save {
 		
 		$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;		
 		$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
+		
+		update_post_meta( $this->post_id, 'headline', $_POST['headline'] );
+		update_post_meta( $this->post_id, 'AffiliatedOrganization', $_POST['AffiliatedOrganization'] );
+		update_post_meta( $this->post_id, 'BodyCopy', $_POST['BodyCopy'] );
+		update_post_meta( $this->post_id, 'RegistrationTextandLink', $_POST['RegistrationTextandLink'] );
+		update_post_meta( $this->post_id, 'eventCategory', $_POST['eventCategory'] );
 
 		/**
 		 * handle previewed venues and organizers
